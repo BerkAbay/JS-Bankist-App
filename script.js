@@ -32,6 +32,7 @@ const account4 = {
 };
 
 const accounts = [account1, account2, account3, account4];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // Elements
 const labelWelcome = document.querySelector('.welcome');
@@ -82,6 +83,13 @@ const displayMovements = function (movements) {
 };
 displayMovements(account1.movements);
 
+// Calculated the balance of movements
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance} ₺`;
+};
+calcDisplayBalance(account1.movements);
+
 // Create username
 const createUsernames = function (accs) {
   accs.forEach(function (acc) {
@@ -92,6 +100,26 @@ const createUsernames = function (accs) {
       .join('');
   });
 };
-
 createUsernames(accounts);
-console.log(accounts);
+
+// Numbers greater than 0 are logged
+const deposits = movements.filter(function (mov) {
+  return mov > 0;
+});
+console.log(deposits);
+
+// Numbers less than 0 are logged
+const withdrawal = movements.filter(function (mov) {
+  return mov < 0;
+});
+console.log(withdrawal);
+
+// Maxmimum value
+const max = movements.reduce((acc, mov) => {
+  if (acc > mov) {
+    return acc;
+  } else {
+    return mov;
+  }
+}, movements[0]);
+console.log(max);
